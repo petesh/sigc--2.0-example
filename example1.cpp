@@ -8,14 +8,14 @@ public:
 
     void run();
 
-    sigc::signal<void> signal_detected;
+    sigc::signal<void> signal_detected; // This is a slot for a void function
 };
 
 AlienDetector::AlienDetector() {}
 
 void AlienDetector::run() {
     sleep(3); // wait for aliens
-    signal_detected.emit(); // panic
+    signal_detected.emit(); // send the signal. Because there's no parameter, none is passed to emit.
 }
 
 using namespace std;

@@ -4,8 +4,8 @@
 
 class Transmitter {
     protected:
-        std::string m_origin;
-        sigc::signal<void, const std::string &> m_slot;
+        std::string m_origin; // parameter being sent to the slot
+        sigc::signal<void, const std::string &> m_slot; // slot for the signal
 
     public:
         Transmitter(const std::string origin) : m_origin(origin) {}
@@ -18,7 +18,7 @@ void
 Transmitter::run(void)
 {
     sleep(2);
-    m_slot.emit(m_origin);
+    m_slot.emit(m_origin); // Emit the signal
 }
 
 class Receiver {
@@ -39,6 +39,7 @@ int main()
     Transmitter transmit("This is the message");
     Receiver receipt;
 
+    // connect the member function get_message to the transmission slot
     transmit.getSlot().connect( sigc::mem_fun(receipt, &Receiver::get_message) );
 
     transmit.run();
