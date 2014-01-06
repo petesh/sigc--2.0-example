@@ -2,10 +2,10 @@ CXXFLAGS += $(shell pkg-config --cflags --libs sigc++-2.0)
 
 all: example1 example2
 
-example1: example1.o
+example1: example1.cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
-example2: example2.o
+example2: example2.cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 clean:
