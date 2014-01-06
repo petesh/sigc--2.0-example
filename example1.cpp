@@ -8,7 +8,7 @@ public:
 
     void run();
 
-    sigc::signal<void> signal_detected; // This is a slot for a void function
+    sigc::signal<void> signal_detected; // This is a slot container for void functions
 };
 
 AlienDetector::AlienDetector() {}

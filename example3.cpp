@@ -5,7 +5,7 @@
 class Transmitter {
     protected:
         std::string m_origin; // parameter being sent to the slot
-        sigc::signal<void, const std::string &> m_slot; // slot container that takes a const std::string reference
+        sigc::signal<void, const std::string &> m_slot; // slot for the signal
 
     public:
         Transmitter(const std::string origin) : m_origin(origin) {}
@@ -39,9 +39,14 @@ int main()
     Transmitter transmit("This is the message");
     Receiver receipt;
 
-    // connect the member function get_message to the transmission slot
-    transmit.getSlot().connect( sigc::mem_fun(receipt, &Receiver::get_message) );
+    // connect the member function get_message to the transmission slot, record the connection
+    sigc::connection conn1 = transmit.getSlot().connect( sigc::mem_fun(receipt, &Receiver::get_message) );
+    sigc::connection conn2 = transmit.getSlot().connect( sigc::mem_fun(receipt, &Receiver::get_message) );
 
+    std::cout << "Expect two messages" << std::endl;
+    transmit.run();
+    conn1.disconnect();
+    std::cout << "Expect one messages" << std::endl;
     transmit.run();
 
     return 0;
