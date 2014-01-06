@@ -1,6 +1,22 @@
 #include <iostream>
 #include <sigc++/sigc++.h>
-#include "detector.h"
+
+class AlienDetector
+{
+public:
+    AlienDetector();
+
+    void run();
+
+    sigc::signal<void> signal_detected;
+};
+
+AlienDetector::AlienDetector() {}
+
+void AlienDetector::run() {
+    sleep(3); // wait for aliens
+    signal_detected.emit(); // panic
+}
 
 using namespace std;
 
